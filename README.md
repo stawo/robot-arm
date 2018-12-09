@@ -100,6 +100,8 @@ Links:
 
 # Raspberry Pi configuration
 
+I'm running the Raspberry Pi using Raspbian Stretch with desktop (https://www.raspberrypi.org/downloads/raspbian/).
+
 Here is the Raspberry Pi GPIO layout (http://pi4j.com/pins/model-2b-rev1.html) for reference:
 ![raspberry pi gpio](images/raspberry_pi_2_gpio.png "Raspberry Pi 2 GPIO")
 
@@ -122,7 +124,8 @@ To be able to control servo motor through the PCA9685 controller, we need to per
   It should show up at 0x40 (binary 1000000) as follows:
   ![raspberry pi i2cdetect](images/raspberry_pi_i2cdetect.png "i2cdetect")
 4. Connect the PCA9685 controller as in the diagram
-5. Install the library https://github.com/adafruit/Adafruit_Python_PCA9685 by running the command:
+5. [optional] Create/activate the Python environment of your choice
+6. Install the library https://github.com/adafruit/Adafruit_Python_PCA9685 by running the command:
   ``sudo pip install adafruit-pca9685``
 
 Links:
