@@ -3,7 +3,15 @@ This is a small project aimed at building a 6 DOF robot arm using inexpensive co
 ![robot arm kit](images/robot_arm_kit.jpg "Robot Arm Kit")
 
 # Table of Contents
-[toc]
+- [Table of Contents](#table-of-contents)
+- [BOM](#bom)
+- [Some Theory](#some-theory)
+  - [Controlling Servo Motors](#controlling-servo-motors)
+  - [Servo motor feedback](#servo-motor-feedback)
+- [Raspberry Pi configuration](#raspberry-pi-configuration)
+  - [Raspberry Pi set up](#raspberry-pi-set-up)
+  - [Controlling servo motors with Raspberry Pi and the PWM Driver PCA9685](#controlling-servo-motors-with-raspberry-pi-and-the-pwm-driver-pca9685)
+  - [Reading the feedback from servo motors with Raspberry Pi](#reading-the-feedback-from-servo-motors-with-raspberry-pi)
 
 # BOM
 List of components used:
