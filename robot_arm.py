@@ -102,19 +102,28 @@ class RobotArm:
         self.__joints = []
 
         self.__joints.append(Servo(self.__pwm,0,self.PWM_BOARD_RESOLUTION))
+        self.__joints.append(Servo(self.__pwm,6,self.PWM_BOARD_RESOLUTION))
 
     def move(self):
         
         print('Move the servo')
         self.__joints[0].move(0)
+        self.__joints[1].move(0)
         time.sleep(3)
+        
         self.__joints[0].move(180)
+        self.__joints[1].move(90)
         time.sleep(3)
+        
         self.__joints[0].move(90)
+        self.__joints[1].move(270)
         time.sleep(3)
+        
         self.__joints[0].move(120)
+        self.__joints[1].move(200)
         time.sleep(3)
 
 if __name__ == "__main__":
     
     robot_arm = RobotArm()
+    robot_arm.move()
