@@ -24,8 +24,6 @@ SERVO_MOTOR_ANGLE_MIN = 0  # Min angle, in degrees
 SERVO_MOTOR_ANGLE_MAX = 270  # Max angle, in degrees
 PWM_BOARD_RESOLUTION = 4096 # PWM control board resolution
 
-servo_channel = 0
-
 # ----------------------------
 # CODE
 
@@ -73,21 +71,75 @@ def move_servo(pwm, servo_channel, angle):
 
     pwm.set_pwm(servo_channel, 0, pwm_step)
 
+def manual_control(pwm, servo_channel):
 
-print('Initialize PWM board controller')
-# Initialise the PCA9685 using the default address (0x40).
-pwm = Adafruit_PCA9685.PCA9685()
+    print('Move the servo manually (press "x" to exit).')
+    input_data = None
+    while True:
+        
+        input_data = input("Enter the angle: ")
 
-print('Set frequency')
-# Set the frequency
-pwm.set_pwm_freq(SERVO_MOTOR_FREQUENCY)
+        if input_data.lower() == 'x':
+            break
 
-print('Move the servo')
-move_servo(pwm, servo_channel, 0)
-time.sleep(3)
-move_servo(pwm, servo_channel, 180)
-time.sleep(3)
-move_servo(pwm, servo_channel, 90)
-time.sleep(3)
-move_servo(pwm, servo_channel, 110)
-time.sleep(3)
+        try:
+            angle = int(input_data)
+        except Exception:
+            print('Either enter an integer or "x" to exit.')
+            continue
+        
+        try:
+            move_servo(pwm, servo_channel, angle)
+        except ValueError:
+            print('The inputted angle is not valid.')
+            continue
+
+def automatic_control(pwm, servo_channel):
+    print('Move the servo with a test pattern.')
+    move_servo(pwm, servo_channel, 0)
+    time.sleep(3)
+    move_servo(pwm, servo_channel, 180)
+    time.sleep(3)
+    move_servo(pwm, servo_channel, 90)
+    time.sleep(3)
+    move_servo(pwm, servo_channel, 110)
+    time.sleep(3)
+
+
+if __name__ == "__main__":
+    
+    print('Initialize PWM board controller')
+    # Initialise the PCA9685 using the default address (0x40).
+    pwm = Adafruit_PCA9685.PCA9685()
+
+    print('Set frequency')
+    # Set the frequency
+    pwm.set_pwm_freq(SERVO_MOTOR_FREQUENCY)
+
+    while True:
+        
+        input_data = input("What servo motor (channel) you want to control? ")
+
+        try:
+            servo_channel = int(input_data)
+
+            if servo_channel < 0 or servo_channel > 5:
+                raise ValueError
+
+        except Exception:
+            print('Enter an integer between 0 and 5.')
+            continue
+        
+        input_data = input("What do you want to do?\n[1] Manual test\n[2] Automatic test\n[x] Exit\nAnswer: ")
+
+        if input_data == '1':
+            manual_control(pwm, servo_channel)
+        elif input_data == '2':
+            automatic_control(pwm, servo_channel)
+        elif input_data.lower() == 'x':
+            break
+        else:
+            print('Unrecognized input.')
+            continue
+
+        print('Done.')
